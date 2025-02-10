@@ -1,0 +1,140 @@
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+
+body {
+   background-color: #7945FF;
+}
+
+.game-screen {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin: auto;
+   min-height: 100vh;
+}
+
+.game-board {
+   position: relative;
+}
+
+.grid-cell {
+   position: absolute;
+}
+
+.grid-cell[data-x="0"][data-y="0"] {
+   top: 18px;
+   left: 18px;
+}
+
+.grid-cell[data-x="1"][data-y="0"] {
+   top: 18px;
+   left: 108px;
+}
+
+.grid-cell[data-x="2"][data-y="0"] {
+   top: 18px;
+   left: 198px;
+}
+
+.grid-cell[data-x="3"][data-y="0"] {
+   top: 18px;
+   left: 288px;
+}
+
+.grid-cell[data-x="4"][data-y="0"] {
+   top: 18px;
+   left: 378px;
+}
+
+.grid-cell[data-x="5"][data-y="0"] {
+   top: 18px;
+   left: 468px;
+}
+
+.grid-cell[data-x="6"][data-y="0"] {
+   top: 18px;
+   left: 558px;
+}
+
+.grid-cell[data-x="0"][data-y="1"] {
+   top: 108px;
+   left: 18px;
+}
+
+.grid-cell[data-x="0"][data-y="1"] {
+   top: 108px;
+   left: 18px;
+}
+
+.grid-cell[data-x="1"][data-y="1"] {
+   top: 108px;
+   left: 108px;
+}
+
+.grid-cell[data-x="2"][data-y="1"] {
+   top: 108px;
+   left: 198px;
+}
+
+.grid-cell[data-x="3"][data-y="1"] {
+   top: 108px;
+   left: 288px;
+}
+
+.grid-cell[data-x="4"][data-y="1"] {
+   top: 108px;
+   left: 378px;
+}
+
+.grid-cell[data-x="5"][data-y="1"] {
+   top: 108px;
+   left: 468px;
+}
+
+.grid-cell[data-x="6"][data-y="1"] {
+   top: 108px;
+   left: 558px;
+}
+
+.grid-cell[data-x="0"][data-y="2"] {
+   top: 198px;
+   left: 18px;
+}
+
+.grid-cell[data-x="0"][data-y="2"] {
+   top: 198px;
+   left: 18px;
+}
+
+.grid-cell[data-x="1"][data-y="2"] {
+   top: 198px;
+   left: 108px;
+}
+
+.grid-cell[data-x="2"][data-y="2"] {
+   top: 198px;
+   left: 198px;
+}
+
+.grid-cell[data-x="3"][data-y="2"] {
+   top: 198px;
+   left: 288px;
+}
+
+.grid-cell[data-x="4"][data-y="2"] {
+   top: 198px;
+   left: 378px;
+}
+
+.grid-cell[data-x="5"][data-y="2"] {
+   top: 198px;
+   left: 468px;
+}
+
+.grid-cell[data-x="6"][data-y="2"] {
+   top: 198px;
+   left: 558px;
+}
