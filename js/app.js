@@ -5,11 +5,12 @@ const $gameRulesBtn = document.querySelector("#accept-rules-btn")
 const $rulesBtn = document.querySelector("#rules-btn")
 const $cpuBtn = document.querySelector("#cpu-btn")
 const $playerBtn = document.querySelector("#player-btn")
+const $restartBtn = document.querySelector(".restart-btn")
 const $gameMenuContainer = document.querySelector(".game-menu-container")
 const $menuBlock = document.querySelector(".menu-block")
 const $body = document.querySelector("body")
 
-console.log($body)
+console.log($restartBtn)
 
 const red = `<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="Oval Copy 43" filter="url(#filter0_i_5_6369)">
@@ -61,7 +62,7 @@ let currentPlayer = "r"
 $gameMenuContainer.classList.remove("hidden")
 
 $cpuBtn.addEventListener("click", function () {
-    alert("Not available yet")
+    alert("Not avaible yet")
 })
 
 $playerBtn.addEventListener("click", function () {
@@ -86,6 +87,17 @@ $gameRulesBtn.addEventListener("click", function () {
         $gameRules.classList.add("hidden")
     })
     $gameMenuContainer.classList.remove("hidden")
+})
+
+$restartBtn.addEventListener("click", function () {
+    gameBoard = [
+        ["", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", ""],
+    ]
 })
 
 $gameScreen.forEach(function (gameScreen) {
