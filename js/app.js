@@ -59,6 +59,42 @@ let gameBoard = [
 
 let currentPlayer = "r"
 
+function checkWin() {
+    // Check horizontal
+    for (let i = 0; i < 6; i++) {
+        for (let j = 0; j < 4; j++) {
+            if (gameBoard[i][j] === gameBoard[i][j + 1] && gameBoard[i][j] === gameBoard[i][j + 2] && gameBoard[i][j] === gameBoard[i][j + 3] && gameBoard[i][j] !== "") {
+                return true
+            }
+        }
+    }
+    // Check vertical
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 7; j++) {
+            if (gameBoard[i][j] === gameBoard[i + 1][j] && gameBoard[i][j] === gameBoard[i + 2][j] && gameBoard[i][j] === gameBoard[i + 3][j] && gameBoard[i][j] !== "") {
+                return true
+            }
+        }
+    }
+    // Check diagonal (top-left to bottom-right)
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 4; j++) {
+            if (gameBoard[i][j] === gameBoard[i + 1][j + 1] && gameBoard[i][j] === gameBoard[i + 2][j + 2] && gameBoard[i][j] === gameBoard[i + 3][j + 3] && gameBoard[i][j] !== "") {
+                return true
+            }
+        }
+    }
+    // Check diagonal (top-right to bottom-left)
+    for (let i = 0; i < 3; i++) {
+        for (let j = 3; j < 7; j++) {
+            if (gameBoard[i][j] === gameBoard[i + 1][j - 1] && gameBoard[i][j] === gameBoard[i + 2][j - 2] && gameBoard[i][j] === gameBoard[i + 3][j - 3] && gameBoard[i][j] !== "") {
+                return true
+            }
+        }
+    }
+    return false
+}
+
 $gameMenuContainer.classList.remove("hidden")
 
 $cpuBtn.addEventListener("click", function () {
@@ -98,6 +134,8 @@ $restartBtn.addEventListener("click", function () {
         ["", "", "", "", "", "", ""],
         ["", "", "", "", "", "", ""],
     ]
+    $gridCells.forEach(cell => cell.innerHTML = "")
+    currentPlayer = "r"
 })
 
 $gameScreen.forEach(function (gameScreen) {
@@ -113,7 +151,6 @@ $gridCells.forEach(function ($gridCell) {
         if ($gridCell.hasChildNodes()) {
 
         } else {
-            // $gridCell.innerHTML = red
             const dataX = $gridCell.getAttribute("data-x")
 
             for (let i = 5; i >= 0; i--) {
@@ -129,6 +166,14 @@ $gridCells.forEach(function ($gridCell) {
                     } else {
                         $selectedCell.innerHTML = yellow
                         currentPlayer = "r"
+                    }
+
+                    if (checkWin()) {
+                        const winner = currentPlayer === "r" ? "Yellow" : "Red"
+                        setTimeout(() => {
+                            alert(`${winner}`)
+                            $restartBtn.click()
+                        }, 100)
                     }
 
                     return
