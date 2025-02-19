@@ -9,8 +9,11 @@ const $restartBtn = document.querySelector(".restart-btn")
 const $gameMenuContainer = document.querySelector(".game-menu-container")
 const $menuBlock = document.querySelector(".menu-block")
 const $body = document.querySelector("body")
+const $timerText = document.querySelector(".timer")
+const $timerPlayer = document.querySelector(".timer-player")
 
-console.log($restartBtn)
+let timer = 30
+let timerInterval
 
 const red = `<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="Oval Copy 43" filter="url(#filter0_i_5_6369)">
@@ -59,35 +62,52 @@ let gameBoard = [
 
 let currentPlayer = "r"
 
+function startTimer() {
+    clearInterval(timerInterval)
+    timer = 30
+    $timerText.textContent = timer + "s"
+    $timerPlayer.textContent = currentPlayer === "r" ? "PLAYER 1'S TURN" : "PLAYER 2'S TURN"
+
+    timerInterval = setInterval(() => {
+        timer--
+        $timerText.textContent = timer + "s"
+
+        if (timer === 0) {
+            currentPlayer = currentPlayer === "r" ? "y" : "r"
+            startTimer()
+        }
+    }, 1000)
+}
+
 function checkWin() {
     // Check horizontal
     for (let i = 0; i < 6; i++) {
-        for (let j = 0; j < 4; j++) {
-            if (gameBoard[i][j] === gameBoard[i][j + 1] && gameBoard[i][j] === gameBoard[i][j + 2] && gameBoard[i][j] === gameBoard[i][j + 3] && gameBoard[i][j] !== "") {
+        for (let k = 0; k < 4; k++) {
+            if (gameBoard[i][k] === gameBoard[i][k + 1] && gameBoard[i][k] === gameBoard[i][k + 2] && gameBoard[i][k] === gameBoard[i][k + 3] && gameBoard[i][k] !== "") {
                 return true
             }
         }
     }
     // Check vertical
     for (let i = 0; i < 3; i++) {
-        for (let j = 0; j < 7; j++) {
-            if (gameBoard[i][j] === gameBoard[i + 1][j] && gameBoard[i][j] === gameBoard[i + 2][j] && gameBoard[i][j] === gameBoard[i + 3][j] && gameBoard[i][j] !== "") {
+        for (let k = 0; k < 7; k++) {
+            if (gameBoard[i][k] === gameBoard[i + 1][k] && gameBoard[i][k] === gameBoard[i + 2][k] && gameBoard[i][k] === gameBoard[i + 3][k] && gameBoard[i][k] !== "") {
                 return true
             }
         }
     }
     // Check diagonal (top-left to bottom-right)
     for (let i = 0; i < 3; i++) {
-        for (let j = 0; j < 4; j++) {
-            if (gameBoard[i][j] === gameBoard[i + 1][j + 1] && gameBoard[i][j] === gameBoard[i + 2][j + 2] && gameBoard[i][j] === gameBoard[i + 3][j + 3] && gameBoard[i][j] !== "") {
+        for (let k = 0; k < 4; k++) {
+            if (gameBoard[i][k] === gameBoard[i + 1][k + 1] && gameBoard[i][k] === gameBoard[i + 2][k + 2] && gameBoard[i][k] === gameBoard[i + 3][k + 3] && gameBoard[i][k] !== "") {
                 return true
             }
         }
     }
     // Check diagonal (top-right to bottom-left)
     for (let i = 0; i < 3; i++) {
-        for (let j = 3; j < 7; j++) {
-            if (gameBoard[i][j] === gameBoard[i + 1][j - 1] && gameBoard[i][j] === gameBoard[i + 2][j - 2] && gameBoard[i][j] === gameBoard[i + 3][j - 3] && gameBoard[i][j] !== "") {
+        for (let k = 3; k < 7; k++) {
+            if (gameBoard[i][k] === gameBoard[i + 1][k - 1] && gameBoard[i][k] === gameBoard[i + 2][k - 2] && gameBoard[i][k] === gameBoard[i + 3][k - 3] && gameBoard[i][k] !== "") {
                 return true
             }
         }
@@ -108,6 +128,7 @@ $playerBtn.addEventListener("click", function () {
         gameScreen.classList.remove("hidden")
         gameScreen.style.animation = "menu 650ms ease-in-out forwards"
     })
+    startTimer()
 })
 
 $rulesBtn.addEventListener("click", function () {
@@ -136,6 +157,7 @@ $restartBtn.addEventListener("click", function () {
     ]
     $gridCells.forEach(cell => cell.innerHTML = "")
     currentPlayer = "r"
+    startTimer()
 })
 
 $gameScreen.forEach(function (gameScreen) {
@@ -170,10 +192,13 @@ $gridCells.forEach(function ($gridCell) {
 
                     if (checkWin()) {
                         const winner = currentPlayer === "r" ? "Yellow" : "Red"
+                        clearInterval(timerInterval)
                         setTimeout(() => {
                             alert(`${winner}`)
                             $restartBtn.click()
                         }, 100)
+                    } else {
+                        startTimer()
                     }
 
                     return
@@ -182,5 +207,19 @@ $gridCells.forEach(function ($gridCell) {
                 }
             }
         }
+    })
+})
+
+$gridCells.forEach(function ($gridCell) {
+    $gridCell.addEventListener("mouseover", function () {
+        const dataX = $gridCell.getAttribute("data-x")
+        const $cross = document.querySelector(`.grid-cross[data-x="${dataX}"]`)
+        $cross.style.display = "block"
+    })
+
+    $gridCell.addEventListener("mouseout", function () {
+        const dataX = $gridCell.getAttribute("data-x")
+        const $cross = document.querySelector(`.grid-cross[data-x="${dataX}"]`)
+        $cross.style.display = "none"
     })
 })
